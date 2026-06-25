@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GROW YMAK | طلب الانضمام</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
+    :root{--primary:#6366f1;--secondary:#8b5cf6;--accent:#3b82f6;--green:#22c55e;--bg:#070a13;--text:#f1f5f9;--muted:#94a3b8}
+    body{font-family:'Cairo',sans-serif;background:var(--bg);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;direction:rtl;overflow-x:hidden}
+    #loader{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.6s,visibility 0.6s}
+    #loader.hide{opacity:0;visibility:hidden;pointer-events:none}
+    #loader .logo-lg{width:90px;height:90px;margin-bottom:24px;animation:lp 2s infinite}
+    @keyframes lp{0%,100%{filter:drop-shadow(0 0 15px rgba(99,102,241,0.3))}50%{filter:drop-shadow(0 0 40px rgba(99,102,241,0.6))}}
+    #loader .lbw{width:200px;height:4px;border-radius:4px;background:rgba(255,255,255,0.08);overflow:hidden}
+    #loader .lbf{height:100%;width:0%;border-radius:4px;background:linear-gradient(90deg,var(--primary),var(--secondary));animation:lbf 2.5s forwards}
+    @keyframes lbf{0%{width:0%}100%{width:100%}}
+    #loader .lt{color:var(--muted);font-size:14px;margin-top:16px;font-weight:500;letter-spacing:1px}
+    #st{position:fixed;top:24px;left:24px;z-index:100;width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:0.3s;font-size:20px;backdrop-filter:blur(12px)}
+    #st:hover{background:rgba(255,255,255,0.1);transform:scale(1.05)}
+    .bg{position:fixed;inset:0;z-index:0;overflow:hidden}
+    .bg span{position:absolute;border-radius:50%;filter:blur(100px);opacity:0.1;animation:fl 25s infinite}
+    .bg span:nth-child(1){width:700px;height:700px;background:var(--primary);top:-15%;left:-15%}
+    .bg span:nth-child(2){width:550px;height:550px;background:var(--secondary);bottom:-20%;right:-15%;animation-delay:-8s}
+    @keyframes fl{0%,100%{transform:translate(0,0)scale(1)}50%{transform:translate(40px,-40px)scale(1.05)}}
+    .grid{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.012) 1px,transparent 1px);background-size:50px 50px}
+    .gl{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(99,102,241,0.06),transparent 70%);pointer-events:none;z-index:0}
+    .container{position:relative;z-index:1;background:rgba(255,255,255,0.035);backdrop-filter:blur(35px);border-radius:36px;padding:50px 44px;max-width:540px;width:100%;box-shadow:0 30px 100px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.06),0 0 0 1px rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.05)}
+    .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+    .logo-s svg{width:40px;height:40px}
+    .logo-s span{font-size:16px;font-weight:800;background:linear-gradient(135deg,#a78bfa,#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-right:8px}
+    .back{color:var(--muted);font-size:13px;font-weight:600;text-decoration:none;padding:8px 14px;border-radius:10px;background:rgba(255,255,255,0.05);transition:0.3s;display:flex;align-items:center;gap:4px}
+    .back:hover{background:rgba(255,255,255,0.1);color:#fff}
+    .progress{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:32px}
+    .progress .s{height:4px;flex:1;max-width:34px;border-radius:4px;background:rgba(255,255,255,0.07);transition:all 0.6s cubic-bezier(0.22,1,0.36,1)}
+    .progress .s.done{background:var(--green)}
+    .progress .s.active{background:var(--primary);box-shadow:0 0 14px rgba(99,102,241,0.4)}
+    .step{display:none}
+    .step.active{display:block;animation:fu 0.55s cubic-bezier(0.22,1,0.36,1)}
+    @keyframes fu{0%{opacity:0;transform:translateY(28px);filter:blur(4px)}100%{opacity:1;transform:translateY(0);filter:blur(0)}}
+    .title{font-size:26px;font-weight:800;color:var(--text);margin-bottom:10px;line-height:1.35}
+    .title .g{background:linear-gradient(135deg,#818cf8,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .desc{font-size:15px;line-height:1.8;color:var(--muted);margin-bottom:28px}
+    .btn{width:100%;padding:16px 24px;border:none;border-radius:14px;font-size:16px;font-weight:700;cursor:pointer;transition:all 0.35s cubic-bezier(0.22,1,0.36,1);font-family:inherit;position:relative;overflow:hidden}
+    .btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.08),transparent);opacity:0;transition:0.35s}
+    .btn:hover::before{opacity:1}
+    .btn:active{transform:scale(0.97)}
+    .btn-p{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;box-shadow:0 4px 25px rgba(99,102,241,0.3)}
+    .btn-p:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 10px 40px rgba(99,102,241,0.45)}
+    .btn-s{background:rgba(255,255,255,0.06);color:var(--text);border:1px solid rgba(255,255,255,0.08)}
+    .btn-s:hover{background:rgba(255,255,255,0.1)}
+    .btn-g{background:linear-gradient(135deg,var(--green),#16a34a);color:#fff;box-shadow:0 4px 25px rgba(34,197,94,0.3)}
+    .btn-g:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 10px 40px rgba(34,197,94,0.4)}
+    .btn:disabled{opacity:0.4;cursor:not-allowed;transform:none!important}
+    .btn .sp{display:inline-block;width:20px;height:20px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:sp .7s infinite;vertical-align:middle;margin-left:8px}
+    @keyframes sp{to{transform:rotate(360deg)}}
+    .rules{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+    .ri{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.03);border-radius:12px;padding:14px 16px;border:1px solid rgba(255,255,255,0.04);transition:0.3s}
+    .ri:hover{border-color:rgba(99,102,241,0.15);background:rgba(99,102,241,0.04)}
+    .ri .rc{font-size:18px;flex-shrink:0}
+    .ri .rt{color:#cbd5e1;font-size:15px;line-height:1.6}
+    .cb{display:flex;align-items:center;gap:12px;padding:16px 20px;background:rgba(255,255,255,0.03);border-radius:12px;border:1px solid rgba(255,255,255,0.07);cursor:pointer;transition:0.35s;margin-bottom:20px;user-select:none}
+    .cb:hover{border-color:rgba(99,102,241,0.25)}
+    .cb.ok{border-color:rgba(34,197,94,0.25);background:rgba(34,197,94,0.05)}
+    .cb .bx{width:22px;height:22px;border-radius:6px;border:2px solid rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;transition:0.3s;flex-shrink:0;font-size:13px;color:#fff}
+    .cb.ok .bx{background:var(--green);border-color:var(--green)}
+    .cb .cl{color:var(--muted);font-size:15px;line-height:1.5}
+    .status{padding:24px 20px;border-radius:14px;margin-bottom:24px;text-align:center;transition:0.5s}
+    .status .si{font-size:38px;margin-bottom:10px;display:block}
+    .status .st{font-size:16px;font-weight:600}
+    .status .sd{font-size:13px;color:#64748b;margin-top:6px}
+    .s-ch{background:rgba(250,204,21,0.07);border:1px solid rgba(250,204,21,0.16);color:#facc15}
+    .s-on{background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.18);color:#4ade80}
+    .s-off{background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.16);color:#f87171}
+    .fg{margin-bottom:16px}
+    .fg label{display:block;font-size:14px;font-weight:600;color:#cbd5e1;margin-bottom:6px}
+    .fg label .rq{color:#f87171;margin-right:2px}
+    .fg input{width:100%;padding:13px 16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:12px;font-size:15px;color:var(--text);outline:none;transition:0.3s;font-family:inherit}
+    .fg input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,0.12)}
+    .fg input.err{border-color:#ef4444;box-shadow:0 0 0 3px rgba(239,68,68,0.1)}
+    .fg input::placeholder{color:#3a4055}
+    .fg .er{font-size:13px;color:#f87171;margin-top:4px;display:none}
+    .fg input.err+.er{display:block}
+    .rv{background:rgba(255,255,255,0.035);border-radius:16px;padding:24px;margin-bottom:28px;border:1px solid rgba(255,255,255,0.05)}
+    .rv .rr{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+    .rv .rr:last-child{border-bottom:none}
+    .rv .rl{color:#64748b;font-size:14px;font-weight:500}
+    .rv .rvl{color:#e2e8f0;font-size:15px;font-weight:600;text-align:left}
+    .suc{width:80px;height:80px;border-radius:50%;margin:0 auto 24px;background:linear-gradient(135deg,var(--green),#16a34a);display:flex;align-items:center;justify-content:center;font-size:38px;color:#fff;box-shadow:0 8px 45px rgba(34,197,94,0.35);animation:pop .6s cubic-bezier(0.175,0.885,0.32,1.275)}
+    @keyframes pop{0%{transform:scale(0);opacity:0}100%{transform:scale(1);opacity:1}}
+    .ic{background:rgba(88,101,242,0.1);border:1px solid rgba(88,101,242,0.2);border-radius:14px;padding:20px;text-align:center;margin-bottom:20px}
+    .ic .il{font-size:13px;color:#818cf8;font-weight:600;margin-bottom:8px}
+    .ic a{color:#8b9cff;font-size:17px;font-weight:600;text-decoration:none;word-break:break-all;direction:ltr}
+    .ic a:hover{text-decoration:underline}
+    @media(max-width:480px){
+      .container{padding:32px 20px;border-radius:24px}
+      .title{font-size:22px}
+      .rv{padding:16px}
+    }
+  </style>
+</head>
+<body>
+<div id="loader">
+  <svg class="logo-lg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="lg" x1="0" y1="0" x2="100" y2="100"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient></defs>
+    <circle cx="50" cy="50" r="42" fill="url(#lg)" opacity="0.1" stroke="url(#lg)" stroke-width="2"/>
+    <text x="50" y="58" text-anchor="middle" fill="url(#lg)" font-size="38" font-weight="900" font-family="Arial">$</text>
+    <polygon points="50,10 53,18 47,18" fill="#22c55e" opacity="0.5"/>
+  </svg>
+  <div class="lbw"><div class="lbf"></div></div>
+  <div class="lt">GROW YMAK</div>
+</div>
+<div id="st" onclick="ts()">🔊</div>
+<div class="bg"><span></span><span></span></div>
+<div class="grid"></div><div class="gl"></div>
+<div class="container">
+  <div class="top">
+    <div class="logo-s"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="42" fill="url(#lg)" opacity="0.15" stroke="url(#lg)" stroke-width="1.5"/><text x="50" y="58" text-anchor="middle" fill="url(#lg)" font-size="34" font-weight="900" font-family="Arial">$</text></svg><span>GROW YMAK</span></div>
+    <a href="/GROW-YMAK/" class="back">← الرئيسية</a>
+  </div>
+  <div class="progress" id="p"><span class="s active"></span><span class="s"></span><span class="s"></span><span class="s"></span><span class="s"></span><span class="s"></span></div>
+
+  <!-- Step 0: Welcome -->
+  <div class="step active" id="s0">
+    <h1 class="title">مرحباً بك في <span class="g">GROW YMAK</span></h1>
+    <p class="desc">نظام الانضمام الرسمي لمجتمعنا. أجب على بعض الأسئلة البسيطة لبدء رحلتك معنا.</p>
+    <button class="btn btn-p" onclick="nx()">ابدأ الآن</button>
+  </div>
+
+  <!-- Step 1: Rules -->
+  <div class="step" id="s1">
+    <h2 class="title">القوانين الأساسية</h2>
+    <div class="rules">
+      <div class="ri"><span class="rc">📜</span><span class="rt">يجب أن تمتلك 5 Flous على الأقل لتقديم الطلب.</span></div>
+      <div class="ri"><span class="rc">📜</span><span class="rt">يمنع إعطاء معلومات خاطئة في الطلب.</span></div>
+      <div class="ri"><span class="rc">📜</span><span class="rt">يجب احترام الإدارة والمشرفين.</span></div>
+      <div class="ri"><span class="rc">📜</span><span class="rt">يمنع استعمال حسابات وهمية.</span></div>
+    </div>
+    <div class="cb" id="rcb" onclick="tr()">
+      <span class="bx" id="rbx"></span>
+      <span class="cl">لقد قرأت القوانين وأوافق عليها.</span>
+    </div>
+    <button class="btn btn-p" id="rbtn" disabled onclick="nx()">متابعة</button>
+  </div>
+
+  <!-- Step 2: Info -->
+  <div class="step" id="s2">
+    <h2 class="title">قبل أن تبدأ</h2>
+    <p class="desc">نحن هنا لمساعدتك خلال عملية الانضمام.<br><br>بعد إكمال الطلب سيتم مراجعته من قبل الإدارة.<br><br>يرجى التأكد من كتابة جميع المعلومات بشكل صحيح.</p>
+    <button class="btn btn-p" onclick="nx()">متابعة</button>
+  </div>
+
+  <!-- Step 3: Admin Check -->
+  <div class="step" id="s3">
+    <h2 class="title">التحقق من توفر الإدارة</h2>
+    <p class="desc">يقوم الموقع بالتحقق من وجود مشرفين متصلين في الديسكورد.</p>
+    <div id="admSt" class="status s-ch">
+      <span class="si">⏳</span>
+      <div class="st">جاري التحقق من وجود مشرفين...</div>
+    </div>
+    <button class="btn btn-p" id="admBtn" style="display:none" onclick="ha()">متابعة</button>
+  </div>
+
+  <!-- Step 4: Player Data -->
+  <div class="step" id="s4">
+    <h2 class="title">معلومات الانضمام</h2>
+    <p class="desc">قم بتعبئة بياناتك أدناه لإرسال الطلب.</p>
+    <div class="fg">
+      <label>اسم اللاعب داخل اللعبة <span class="rq">*</span></label>
+      <input type="text" id="fGame" placeholder="أدخل اسمك في اللعبة" maxlength="32">
+      <div class="er">هذا الحقل مطلوب</div>
+    </div>
+    <div class="fg">
+      <label>اسم المستخدم في Discord <span class="rq">*</span></label>
+      <input type="text" id="fDisc" placeholder="مثال: user#0000" maxlength="64">
+      <div class="er">هذا الحقل مطلوب</div>
+    </div>
+    <div class="fg">
+      <label>عدد Flous الذي تمتلكه <span class="rq">*</span></label>
+      <input type="number" id="fFlous" placeholder="يجب أن يكون 5 Flous على الأقل" min="0">
+      <div class="er">يجب أن تمتلك 5 Flous على الأقل</div>
+    </div>
+    <button class="btn btn-p" onclick="gr()">مراجعة البيانات</button>
+  </div>
+
+  <!-- Step 5: Review -->
+  <div class="step" id="s5">
+    <h2 class="title">مراجعة البيانات</h2>
+    <p class="desc">تأكد من صحة جميع المعلومات قبل الإرسال.</p>
+    <div class="rv" id="rvC"></div>
+    <button class="btn btn-g" id="cfBtn" onclick="sr()">تأكيد الإرسال</button>
+    <button class="btn btn-s" style="margin-top:10px" onclick="pv(4)">تعديل البيانات</button>
+  </div>
+
+  <!-- Step 6: Success -->
+  <div class="step" id="s6">
+    <div class="suc">✓</div>
+    <h2 class="title" style="text-align:center">تم استلام طلبك بنجاح</h2>
+    <p class="desc" style="text-align:center">شكراً لتقديم الطلب. يمكنك الآن الانضمام إلى سيرفرنا.</p>
+    <div class="ic">
+      <div class="il">رابط الدعوة الرسمي</div>
+      <a href="#" id="invLink" target="_blank">جاري التحميل...</a>
+    </div>
+    <a href="#" id="invBtn" target="_blank" class="btn btn-g" style="display:inline-block;text-align:center;text-decoration:none;margin-bottom:10px">الانضمام إلى السيرفر</a>
+    <button class="btn btn-s" onclick="rs()">عودة للبداية</button>
+  </div>
+</div>
+
+<script>
+const WH = ['https://discord.com','/api/webhooks','/ID','/TOKEN'].join(''); // ضع رابط Webhook هنا
+const INV = 'https://discord.gg/AUFHMAwnwM';
+const AC = window.AudioContext||window.webkitAudioContext;
+let ax = null, se = true, VOL = 0.07, ST = 6, cur = 0, ra = false, acCnt = 0;
+function ia(){if(!ax) ax = new AC()}
+function pt(f,d,t='sine',v=VOL){
+  if(!se) return;
+  try{ia();const o=ax.createOscillator(),g=ax.createGain();o.connect(g);g.connect(ax.destination);o.frequency.value=f;o.type=t;g.gain.setValueAtTime(v,ax.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ax.currentTime+d);o.start();o.stop(ax.currentTime+d)}catch(e){}
+}
+function pc(){pt(900,0.06)}
+function psu(){if(!se)return;try{ia();[660,880,1100].forEach((f,i)=>{const o=ax.createOscillator(),g=ax.createGain();o.connect(g);g.connect(ax.destination);o.frequency.value=f;const t=ax.currentTime+i*0.12;g.gain.setValueAtTime(VOL*0.8,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.2);o.start(t);o.stop(t+0.2)})}catch(e){}}
+function per(){if(!se)return;try{ia();const o=ax.createOscillator(),g=ax.createGain();o.connect(g);g.connect(ax.destination);o.frequency.setValueAtTime(400,ax.currentTime);o.frequency.exponentialRampToValueAtTime(200,ax.currentTime+0.2);o.type='sawtooth';g.gain.setValueAtTime(VOL*0.4,ax.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ax.currentTime+0.25);o.start();o.stop(ax.currentTime+0.25)}catch(e){}}
+function ts(){se=!se;document.getElementById('st').textContent=se?'🔊':'🔇';if(se){ia();pc()}}
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('hide');pc()},2500)})
+function up(){
+  document.querySelectorAll('.s').forEach((s,i)=>{s.classList.remove('active','done');if(i<cur)s.classList.add('done');else if(i===cur)s.classList.add('active')})
+}
+function nx(){
+  pc();
+  if(cur>=ST-1)return;
+  document.getElementById('s'+cur).classList.remove('active');
+  cur++;document.getElementById('s'+cur).classList.add('active');
+  up();
+  if(cur===3) ca();
+}
+function pv(n){pc();document.getElementById('s'+cur).classList.remove('active');cur=n;document.getElementById('s'+cur).classList.add('active');up()}
+function tr(){
+  ra=!ra;
+  document.getElementById('rcb').classList.toggle('ok',ra);
+  document.getElementById('rbx').textContent=ra?'✓':'';
+  document.getElementById('rbtn').disabled=!ra;
+  pc()
+}
+function ca(){
+  const b=document.getElementById('admSt'),btn=document.getElementById('admBtn');
+  btn.style.display='none';acCnt++;
+  b.className='status s-ch';
+  b.innerHTML='<span class="si">⏳</span><div class="st">جاري التحقق من وجود مشرفين...</div>';
+  fetch('/api/check-admins').then(r=>r.json()).then(d=>{
+    if(d.online){
+      b.className='status s-on';
+      b.innerHTML='<span class="si">🟢</span><div class="st">يوجد مشرف متصل حالياً</div><div class="sd">يمكنك متابعة التسجيل</div>';
+      btn.textContent='متابعة';btn.onclick=()=>{pc();nx()};btn.style.display='block';psu()
+    }else{
+      b.className='status s-off';
+      b.innerHTML='<span class="si">🔴</span><div class="st">لا يوجد مشرف متصل حالياً</div><div class="sd">سيتم التحديث تلقائياً كل 30 ثانية</div>';
+      btn.textContent='إعادة التحقق';btn.onclick=()=>{pc();ca()};btn.style.display='block';
+      setTimeout(ca,30000)
+    }
+  }).catch(()=>{
+    if(acCnt>=2){
+      b.className='status s-on';
+      b.innerHTML='<span class="si">🟢</span><div class="st">يوجد مشرف متصل حالياً</div><div class="sd">يمكنك متابعة التسجيل</div>';
+      btn.textContent='متابعة';btn.onclick=()=>{pc();nx()};btn.style.display='block'
+    }else{
+      b.className='status s-off';
+      b.innerHTML='<span class="si">🔴</span><div class="st">لا يوجد مشرف متصل حالياً</div><div class="sd">يرجى المحاولة مرة أخرى</div>';
+      btn.textContent='إعادة التحقق';btn.onclick=()=>{pc();ca()};btn.style.display='block'
+    }
+  })
+}
+function ha(){pc();nx()}
+function gr(){
+  pc();
+  const g=document.getElementById('fGame'),d=document.getElementById('fDisc'),f=document.getElementById('fFlous');
+  g.classList.remove('err');d.classList.remove('err');f.classList.remove('err');
+  const gv=g.value.trim(),dv=d.value.trim(),fv=f.value.trim(),fn=parseInt(fv);
+  if(!gv){g.classList.add('err');per();return}
+  if(!dv){d.classList.add('err');per();return}
+  if(!fv||isNaN(fn)||fn<5){f.classList.add('err');per();return}
+  window._fd={game:gv,discord:dv,flous:fn};
+  document.getElementById('rvC').innerHTML=`
+    <div class="rr"><span class="rl">اسم اللاعب</span><span class="rvl">${gv}</span></div>
+    <div class="rr"><span class="rl">الديسكورد</span><span class="rvl">${dv}</span></div>
+    <div class="rr"><span class="rl">عدد Flous</span><span class="rvl">${fn}</span></div>`;
+  document.getElementById('s4').classList.remove('active');
+  cur=5;document.getElementById('s5').classList.add('active');up()
+}
+function sr(){
+  pc();const btn=document.getElementById('cfBtn');
+  btn.disabled=true;btn.innerHTML='<span class="sp"></span> جاري الإرسال...';
+  const emb={embeds:[{
+    title:'📨 طلب انضمام جديد',
+    color:6512625,
+    fields:[
+      {name:'👤 اللاعب',value:window._fd.game},
+      {name:'💬 الديسكورد',value:window._fd.discord},
+      {name:'💰 Flous',value:`${window._fd.flous}`},
+      {name:'🕒 الوقت',value:new Date().toLocaleString('ar-SA')}
+    ],
+    footer:{text:'GROW YMAK | نظام الانضمام'}
+  }]};
+  fetch(WH,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(emb)})
+  .then(()=>fs()).catch(()=>fs())
+}
+function fs(){
+  document.getElementById('cfBtn').disabled=false;
+  document.getElementById('cfBtn').innerHTML='تأكيد الإرسال';
+  document.getElementById('invLink').textContent=INV;
+  document.getElementById('invLink').href=INV;
+  document.getElementById('invBtn').href=INV;
+  document.getElementById('s5').classList.remove('active');
+  cur=6;document.getElementById('s6').classList.add('active');up();psu()
+}
+function rs(){
+  pc();acCnt=0;ra=false;
+  document.getElementById('rcb').classList.remove('ok');
+  document.getElementById('rbx').textContent='';
+  document.getElementById('rbtn').disabled=true;
+  document.getElementById('fGame').value='';
+  document.getElementById('fDisc').value='';
+  document.getElementById('fFlous').value='';
+  document.getElementById('admBtn').style.display='none';
+  document.getElementById('admSt').className='status s-ch';
+  document.getElementById('admSt').innerHTML='<span class="si">⏳</span><div class="st">جاري التحقق من وجود مشرفين...</div>';
+  document.getElementById('s'+cur).classList.remove('active');
+  cur=0;document.getElementById('s0').classList.add('active');up()
+}
+['fGame','fDisc','fFlous'].forEach(id=>document.getElementById(id).addEventListener('input',function(){this.classList.remove('err')}))
+</script>
+</body>
+</html>
