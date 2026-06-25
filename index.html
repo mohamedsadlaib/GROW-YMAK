@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GROW YMAK | البوابة الرسمية</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
+    body{
+      font-family:'Cairo',sans-serif;background:#070a13;color:#f1f5f9;
+      min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow-x:hidden;position:relative;
+    }
+    .bg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+    .bg span{position:absolute;border-radius:50%;filter:blur(120px);opacity:0.12;animation:float 25s infinite ease-in-out}
+    .bg span:nth-child(1){width:600px;height:600px;background:#6366f1;top:-15%;left:-10%}
+    .bg span:nth-child(2){width:500px;height:500px;background:#8b5cf6;bottom:-10%;right:-10%;animation-delay:-10s}
+    @keyframes float{0%,100%{transform:translate(0,0)scale(1)}50%{transform:translate(50px,-30px)scale(1.08)}}
+    .grid{position:absolute;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.012) 1px,transparent 1px);background-size:50px 50px}
+    .container{position:relative;z-index:1;max-width:800px;width:100%;padding:40px 20px;text-align:center}
+    .logo-container{margin-bottom:24px;animation:pulseGlow 2.5s infinite ease-in-out}
+    .logo-container svg{width:120px;height:120px}
+    @keyframes pulseGlow{0%,100%{filter:drop-shadow(0 0 15px rgba(99,102,241,0.2))}50%{filter:drop-shadow(0 0 40px rgba(99,102,241,0.5))}}
+    h1{font-size:44px;font-weight:900;margin-bottom:14px;background:linear-gradient(135deg,#f1f5f9,#94a3b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    h1 span{background:linear-gradient(135deg,#818cf8,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    p{color:#94a3b8;font-size:17px;margin-bottom:44px;max-width:520px;margin-inline:auto;line-height:1.8}
+    .nav-links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:48px}
+    .nav-links a{color:#94a3b8;text-decoration:none;font-size:15px;font-weight:600;padding:10px 20px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);transition:all 0.3s}
+    .nav-links a:hover{background:rgba(99,102,241,0.1);border-color:rgba(99,102,241,0.2);color:#fff;transform:translateY(-2px)}
+    .cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:620px;margin:0 auto}
+    .card{background:rgba(255,255,255,0.03);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.06);border-radius:24px;padding:36px 28px;text-decoration:none;color:inherit;transition:all 0.4s cubic-bezier(0.25,1,0.5,1);display:flex;flex-direction:column;align-items:center;position:relative;overflow:hidden}
+    .card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.05),transparent);opacity:0;transition:opacity 0.4s}
+    .card:hover::before{opacity:1}
+    .card:hover{transform:translateY(-8px);border-color:rgba(99,102,241,0.2);box-shadow:0 20px 50px rgba(0,0,0,0.5),0 0 30px rgba(99,102,241,0.08)}
+    .card-icon{width:64px;height:64px;border-radius:18px;background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:20px;transition:all 0.4s}
+    .card:hover .card-icon{background:linear-gradient(135deg,#6366f1,#8b5cf6);transform:scale(1.1) rotate(5deg);box-shadow:0 8px 25px rgba(99,102,241,0.3)}
+    .card-title{font-size:22px;font-weight:800;margin-bottom:8px;color:#f8fafc}
+    .card-desc{font-size:14px;color:#64748b;line-height:1.7}
+    @media(max-width:600px){
+      h1{font-size:30px}.cards-grid{grid-template-columns:1fr}.card{padding:28px 20px}
+    }
+  </style>
+</head>
+<body>
+<div class="bg"><span></span><span></span></div>
+<div class="grid"></div>
+<div class="container">
+  <div class="logo-container">
+    <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="g" x1="0" y1="0" x2="120" y2="120"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#8b5cf6"/></linearGradient>
+        <linearGradient id="g2" x1="20" y1="60" x2="100" y2="60"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#6366f1"/></linearGradient>
+      </defs>
+      <!-- Coin outer -->
+      <circle cx="60" cy="60" r="50" fill="url(#g)" opacity="0.15" stroke="url(#g)" stroke-width="2"/>
+      <circle cx="60" cy="60" r="42" fill="url(#g)" opacity="0.08" stroke="url(#g)" stroke-width="1"/>
+      <!-- F letter -->
+      <text x="60" y="72" text-anchor="middle" fill="url(#g2)" font-size="48" font-weight="900" font-family="Arial">$</text>
+      <!-- Diamond accent -->
+      <polygon points="60,12 64,22 56,22" fill="#22c55e" opacity="0.4"/>
+      <polygon points="60,108 64,98 56,98" fill="#22c55e" opacity="0.4"/>
+      <!-- Small sparkles -->
+      <circle cx="38" cy="38" r="3" fill="#818cf8" opacity="0.6"/>
+      <circle cx="82" cy="38" r="3" fill="#818cf8" opacity="0.6"/>
+      <circle cx="38" cy="82" r="2" fill="#a78bfa" opacity="0.5"/>
+      <circle cx="82" cy="82" r="2" fill="#a78bfa" opacity="0.5"/>
+    </svg>
+  </div>
+  <nav class="nav-links">
+    <a href="/GROW-YMAK/">الرئيسية</a>
+    <a href="/GROW-YMAK/SHOP">المتجر</a>
+    <a href="/GROW-YMAK/JOIN">الانضمام</a>
+    <a href="https://discord.gg/AUFHMAwnwM" target="_blank">الديسكورد</a>
+  </nav>
+  <h1>مرحباً بكم في <span>GROW YMAK</span></h1>
+  <p>البوابة الرسمية لمجتمع GROW YMAK. اختر وجهتك لبدء رحلتك معنا.</p>
+  <div class="cards-grid">
+    <a href="/GROW-YMAK/JOIN" class="card">
+      <div class="card-icon">📝</div>
+      <div class="card-title">طلب الانضمام</div>
+      <div class="card-desc">سجل بياناتك وقدم طلب الانضمام الرسمي إلى مجتمعنا.</div>
+    </a>
+    <a href="/GROW-YMAK/SHOP" class="card">
+      <div class="card-icon">🛒</div>
+      <div class="card-title">المتجر الرسمي</div>
+      <div class="card-desc">تصفح واشترِ الرتب المميزة والعناصر الحصرية للسيرفر.</div>
+    </a>
+  </div>
+</div>
+</body>
+</html>
